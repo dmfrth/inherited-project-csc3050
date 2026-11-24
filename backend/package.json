@@ -7,12 +7,23 @@
   "scripts": {
     "start": "node server.js",
     "dev": "node --watch server.js",
-    "test": "vitest run"
+    "test": "vitest run",
+    "pretest": "prisma generate",
+    "db:generate": "prisma generate",
+    "db:migrate": "prisma migrate dev",
+    "db:deploy": "prisma migrate deploy",
+    "db:seed": "node prisma/seed.js"
   },
   "dependencies": {
-    "express": "^5.1.0"
+    "@prisma/adapter-better-sqlite3": "^7.10.1",
+    "@prisma/client": "^7.10.1",
+    "cors": "^2.8.6",
+    "dotenv": "^18.0.10",
+    "express": "^5.1.0",
+    "helmet": "^8.3.0"
   },
   "devDependencies": {
+    "prisma": "^7.10.1",
     "supertest": "^7.1.4",
     "vitest": "^3.2.4"
   }

@@ -169,7 +169,8 @@ export default function TeamFormPage() {
             id="rookieYear"
             name="rookieYear"
             type="number"
-            min="1900"
+            min="1992"
+            max={new Date().getFullYear()}
             value={form.rookieYear}
             onChange={handleChange}
             required

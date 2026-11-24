@@ -6,16 +6,20 @@ async function handleResponse(response) {
     return null;
   }
 
-  const result = await response.json();
-
-  if (!response.ok) {
-    const message =
-      result?.error?.message || "The request could not be completed.";
-
-    throw new Error(message);
+  let result = null;
+  try {
+    result = await response.json();
+  } catch {
+    // The body was empty or not JSON; fall through to the generic message below.
   }
 
-  return result.data;
+  if (!response.ok) {
+    throw new Error(
+      result?.error?.message || "The request could not be completed."
+    );
+  }
+
+  return result?.data ?? null;
 }
 
 export async function getTeams() {

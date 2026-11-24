@@ -1,0 +1,30 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model Team {
+  id          Int         @id @default(autoincrement())
+  name        String
+  number      Int         @unique
+  rookieYear  Int
+  description String      @default("")
+  history     String      @default("")
+  images      TeamImage[]
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+}
+
+model TeamImage {
+  id       Int    @id @default(autoincrement())
+  url      String
+  position Int    @default(0)
+  team     Team   @relation(fields: [teamId], references: [id], onDelete: Cascade)
+  teamId   Int
+
+  @@index([teamId])
+}
